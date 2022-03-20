@@ -1,0 +1,19 @@
+from openpyxl import load_workbook
+
+# 직원명단 엑셀 불러오기
+wb = load_workbook('C:/Users/mint3/OneDrive/바탕 화면/GUS/파이썬/직원명단.xlsx')
+ws = wb['Sheet1']
+
+# 표지 엑셀 불러오기
+new_wb = load_workbook('C:/Users/mint3/OneDrive/바탕 화면/GUS/파이썬/source.xlsx')
+dest = new_wb['Sheet1']
+
+# 표지 자동화로 만들기
+for i in range(2, 12):                   # 2행부터 12행까지 반복
+    dest['F1'] = ws.cell(i, 1).value     # 1열 : 순번
+    dest['C23'] = ws.cell(i, 3).value    # 3열 : 직원이름
+    new_wb.copy_worksheet(dest)          # 워크시트 복사
+
+# 최종(dest)파일로 저장
+new_wb.save('C:/Users/mint3/OneDrive/바탕 화면/GUS/파이썬/dest.xlsx')
+new_wb.close()
